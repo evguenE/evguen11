@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using System.Drawing.Imaging
+@using System.Threading
+@using Westwind.Globalization
+@using ApiWebApplication1.Properties
+@{
+    var localeId = Request.Params["LocaleId"];
+    if (!string.IsNullOrEmpty(localeId))
+    {
+        Westwind.Utilities.WebUtils.SetUserLocale(localeId, localeId, "$", true, "en,de,fr");
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,8 +33,51 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Машины", "Api", "Help", new { apiId = "PUT-api-Values-id" }, null)</li>
+                    <li>@Html.ActionLink("Водители", "Index", new { area = "Car",controller="Car"},null)</li>
+                    <li>@Html.ActionLink("APIrest", "Get", new { area = "Car", controller = "CarRest",id= 2 }, null)</li>
                 </ul>
             </div>
+           <div>
+               <section class="pull-right" style="text-align: right">
+                   @*<div>
+                       Current Culture: <b>@Thread.CurrentThread.CurrentCulture.IetfLanguageTag</b>
+                   </div>
+                   <div>
+                       Current UI Culture: <b>@Thread.CurrentThread.CurrentUICulture.IetfLanguageTag</b>
+                   </div>*@
+                   <div>
+                     
+                       @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                       {
+                       
+                           <select id="localeId" name="localeId" onchange="this.form.submit()" class=" form-control">
+                               <option value="">Browser Default</option>
+                               <option value="en">English</option>
+                               <option value="de">German</option>
+                               <option value="fr">French</option>
+                           </select>
+                         
+
+                           <script>
+                               var localeId = '@localeId';
+                               if (localeId) {
+                                   var el = document.getElementById("localeId");
+                                   for (var i = 0; i < el.options.length; i++) {
+                                       var opt = el.options[i];
+                                       if (opt.value === localeId)
+                                           opt.selected = true;
+                                       else
+                                           opt.selected = false;
+                                   }
+                               }
+                           </script>
+                       }
+                     
+                   </div>
+               </section>
+               </div>
+
         </div>
     </div>
     <div class="container body-content">
