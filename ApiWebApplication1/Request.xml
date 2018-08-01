@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="XSLTRequest.xslt"?>
+<service>
+  <request-types>
+    <type id="1" caption="Вопрос по кредитному отчету"/>
+    <type id="2" caption="Вопрос по кредитному скорингу"/>
+    <type id="3" caption="Вопрос по запросу в ЦККИ"/>
+    <type id="4" caption="Вопрос по сводному отчету Бюро"/>
+    <type id="5" caption="Другой вопрос"/>
+  </request-types>
+  <requests>
+    <request type="3" client-name="Иванов Иван">Как получить?</request>
+    <request type="4" client-name="Сидоров Сидор">Что означает цифра?</request>
+    <request type="3" client-name="Петров Петр">Что такое ЦККИ?</request>
+    <request type="4" client-name="Иванов Петр">Когда будет ответ?</request>
+    <request type="4" client-name="Петров Иван">Почему нет данных из ОКБ?</request>
+    <request type="5" client-name="Петров Сидор">Вы кто?</request>
+  </requests>
+</service>

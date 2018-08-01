@@ -1,0 +1,212 @@
+﻿<Window x:Class="WpfAppFMBATest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:self="clr-namespace:WpfAppFMBATest"
+        Title="MainWindow" Height="650" Width="700">
+
+    <Grid>
+        <GroupBox Header="Ввод данных" HorizontalAlignment="Left" Margin="10,10,0,0"
+                  VerticalAlignment="Top" Height="236" Width="263">
+            <Grid HorizontalAlignment="Left" Height="226" VerticalAlignment="Top"
+                  Width="437" Margin="0,0,-186,-12">
+                <Label Content="Введите год"
+                       HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Height="25"/>
+                <ComboBox HorizontalAlignment="Left" Name="cbSelection"
+                          Margin="10,41,0,0" VerticalAlignment="Top" Width="170"  >
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>One</ComboBoxItem>
+                    <ComboBoxItem>6</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+
+                    <!--<ComboBox.ItemContainerStyle>
+                        <Style>
+                            <EventSetter Event="ComboBoxItem.PreviewMouseDown" Handler="cmbItem_PreviewMouseDown"/>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>-->
+                </ComboBox>
+                <Label HorizontalAlignment="Left" Content="Свод данных по"
+                          Margin="10,58,0,0" VerticalAlignment= "Top" Height="25"/>
+
+
+                <ComboBox HorizontalAlignment="Left" 
+                          Margin="10,81,0,0" VerticalAlignment="Top" Width="170">
+                    <!--<ComboBoxItem Content="ComboBoxItem" HorizontalAlignment="Left" Width="168"/>-->
+                    <ComboBoxItem>периодам</ComboBoxItem>
+                    <ComboBoxItem>зонам</ComboBoxItem>
+                    <ComboBox.Style>
+                        <Style>
+                            <Setter Property="ComboBox.IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <!--<DataTrigger Binding="{Binding ElementName = cbSelection , Path = SelectedValue.Content}" Value = "True" >
+                                    <Setter  Property="ComboBox.IsEnabled" Value="true"/>
+                                </DataTrigger>-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName = cbSelection , Path = IsSelected}" Value="True"/>
+
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter  Property="ComboBox.IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Style>
+
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Форма" HorizontalAlignment="Right" Margin="0,10,0,0"
+                  VerticalAlignment="Top" Height="236" Width="660" IsEnabled="False">
+            <Grid HorizontalAlignment="Left" Height="226" VerticalAlignment="Top"
+                  Width="253" Margin="0,0,-2,-12">
+                <Label Content="Выберите форму."
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                <!--<CheckBox Content="Cheese" HorizontalAlignment="Left"
+                          Margin="10,41,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Mushrooms" HorizontalAlignment="Left"
+                          Margin="10,61,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Olives" HorizontalAlignment="Left"
+                          Margin="10,81,0,0" VerticalAlignment="Top"/>-->
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Зона" HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom" Height="250" Width="660">
+            <Grid HorizontalAlignment="Left" Height="226" VerticalAlignment="Top"
+                  Width="400" Margin="0,0,-2,-12">
+
+                <Grid Margin="0,2,-45,0">
+
+                    <Grid.Style>
+                        <Style>
+                            <!--<Setter Property="Is GridView.Visible" Value="False" />-->
+
+
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName = CbSelection , Path = SelectedItem }" Value="периодам"/>
+
+                                    </MultiDataTrigger.Conditions>
+
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+
+                            <!--<Setter Property = "Grid.Height" Value="0"/>-->
+                        </Style>
+                    </Grid.Style>
+
+
+                    <!--<Setter Property = "Grid.Height" Value="0"/>-->
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="Auto"/>
+                        <RowDefinition  Height="Auto"/>
+                        <RowDefinition  Height="Auto"/>
+                        <RowDefinition  Height="Auto"/>
+                        <RowDefinition  Height="*"/>
+                        <RowDefinition  Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition  Width="500" />
+                       
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="3" Content="FirstGeneration Пример"  Grid.Column="0" />
+
+
+                    <TreeView ItemsSource="{Binding FirstGeneration}"  Grid.Row="4"  Grid.Column="0"  >
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                <TextBlock Text="{Binding Name}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                    <!--<Label Grid.Row="3" Content="Тест"  Grid.Column="1"   />-->
+                    <!--<TreeView  ItemsSource="{Binding items}"  Grid.Row="4"  Grid.Column="1"  >
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>-->
+
+                    <Label Grid.Row="3"  Grid.Column="0"  Margin="0,0,-5,0"  />
+                    <CheckBox Content="CheckBox" HorizontalAlignment= "Left"  Grid.Row="3"  Grid.Column="1" Checked="CheckBoxChanged"/>
+                    
+                    <TreeView Name="treeView"  Grid.Row="4"  Grid.Column="1" >
+
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Childs}" >
+                                <Grid>
+
+                                    <!--<CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected}" />-->
+                                    <CheckBox>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </CheckBox>
+                                </Grid>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+
+                    <!--<TreeView Name="trvFamilies">
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type self:Family}" ItemsSource="{Binding Members}">
+                                <StackPanel Orientation="Horizontal">
+                                   
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" [" Foreground="Blue" />
+                                    <TextBlock Text="{Binding Members.Count}" Foreground="Blue" />
+                                    <TextBlock Text="]" Foreground="Blue" />
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                            <DataTemplate DataType="{x:Type self:FamilyMember}">
+                                <StackPanel Orientation="Horizontal">
+                                   
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" (" Foreground="Green" />
+                                    <TextBlock Text="{Binding Age}" Foreground="Green" />
+                                    <TextBlock Text=" years)" Foreground="Green" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>-->
+
+                    <!--<TextBlock Text="Hierarchical root binding}" Foreground="Red" Margin="10,20,0,0"/>
+                    <TreeView ItemsSource="{Binding Parent}" Margin="10" Height="200" Grid.Row="4" Grid.ColumnSpan="3" Grid.Column="0"  >
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding ChildZone}" >
+                                <TreeViewItem Header="{Binding Name}"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>-->
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Тип исходного периода"/>
+                    <!--<ComboBox Grid.Row="1" Grid.Column="0" Style="{StaticResource ComboBoxStylePeriod}" ItemsSource="{Binding FormsToPeriod}" 
+                    DisplayMemberPath="Name_Period" SelectedValuePath="ID_Period">
+
+                    </ComboBox>
+                    <Label Grid.Row="0" Grid.Column="1" Content="Тип получаемого периода"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Style="{StaticResource ComboBoxStylePeriod}">
+                        <ComboBoxItem>Сутки</ComboBoxItem>
+                        <ComboBoxItem>Месяц</ComboBoxItem>
+                        <ComboBoxItem>Неделя</ComboBoxItem>
+                        <ComboBoxItem>Год</ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Row="0" Grid.Column="2" Content="Период расчета"/>
+                    <ComboBox Grid.Row="1" Grid.Column="2" Style="{StaticResource ComboBoxStylePeriod}">
+                        <ComboBoxItem>Сутки</ComboBoxItem>
+                        <ComboBoxItem>Месяц</ComboBoxItem>
+                        <ComboBoxItem>Неделя</ComboBoxItem>
+                        <ComboBoxItem>Год</ComboBoxItem>
+                    </ComboBox>-->
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+
+
+
+</Window>

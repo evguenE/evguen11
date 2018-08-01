@@ -1,0 +1,144 @@
+﻿@model IEnumerable<ApiWebApplication1.Models.ApplicationUser>
+@using System.Drawing.Imaging
+@using System.Threading
+@using Westwind.Globalization
+@using ApiWebApplication1.Properties
+@{
+    var localeId = Request.Params["LocaleId"];
+    if (!string.IsNullOrEmpty(localeId))
+    {
+        Westwind.Utilities.WebUtils.SetUserLocale(localeId, localeId, "$", true, "en,de,fr");
+    }
+}
+
+<!doctype html>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+
+@*<div class="container">
+    <h3>DbRes</h3>
+    <label>Using DbRes Direct Access Provider (default locale):</label>
+    <span data-resource-id="HelloWorld">@DbRes.T("HelloWorld", "Resources")</span>
+
+    <label>Using DbRes Force to German:</label>
+    @DbRes.T("HelloWorld", "Resources", "de")
+
+    <label>Missing Resource:</label>
+    <span data-resource-id="MissingResource">@DbRes.T("MissingResource", "Resources")</span>
+</div>*@
+
+
+
+<div ng-app="demo" ng-controller="Ctrl">
+    <table>
+        <thead>
+            <tr>
+                <th class="col-md-2" >id</th>
+                <th class="col-md-2">Предмет</th>
+                <th class="col-md-2">Цена</th>
+                <th class="col-md-2">Куплено</th>
+                <th class="col-md-4">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr ng-repeat="contact in model.contacts | orderBy:sortparam " ng-include="getTemplate(contact)">
+
+           
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="text/ng-template" id="display">
+        <td>{{contact.name }}</td>
+        <td>{{contact.age}}</td>
+        <td>{{contact.price | currency:'RUB' }}</td>
+        <td></td>
+        <td>
+            <button ng-click="editContact(contact)">Edit</button>
+        </td>
+    </script>
+    <script type="text/ng-template" id="edit">
+        <td><input type="text" ng-model="model.selected.name" /></td>
+        <td><input type="text" ng-model="model.selected.age" /></td>
+        <td><input type="text" ng-model="model.selected.price" /></td>
+        <td></td>
+        <td>
+            <button ng-click="saveContact($index)">Save</button>
+            <button ng-click="reset()">Cancel</button>
+        </td>
+    </script>
+</div>
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script>
+
+        var demo = angular.module("demo", []);
+
+        demo.controller("Ctrl",
+
+        function Ctrl($scope) {
+            $scope.model = {
+                contacts: [{
+                    id: 1,
+                    name: "Ben",
+                    price: 10,
+                    age: 28
+                }, {
+                    id: 2,
+                    name: "Sally",
+                    price: 22.9,
+                    age: 24
+                }, {
+                    id: 3,
+                    name: "John",
+                    price: 13,
+                    age: 32
+                }, {
+                    id: 4,
+                    name: "Jane",
+                    price: 56.99,
+                    age: 40
+                }],
+                selected: {}
+            };
+
+            // gets the template to ng-include for a table row / item
+            $scope.getTemplate = function (contact) {
+                if (contact.id === $scope.model.selected.id)
+                {
+                    console.log($scope.model.selected);
+                    return 'edit';
+                }
+                else return 'display';
+            };
+
+            $scope.editContact = function (contact) {
+                $scope.model.selected = angular.copy(contact);
+            };
+
+            $scope.saveContact = function (idx) {
+                console.log($scope);                
+                $scope.model.contacts[idx] = angular.copy($scope.model.selected);
+                $scope.reset();
+            };
+
+            $scope.reset = function () {
+                $scope.model.selected = {};
+               // console.log($scope.model.selected);
+            };
+        });
+
+
+
+
+        
+    </script>
+
+   
+
+

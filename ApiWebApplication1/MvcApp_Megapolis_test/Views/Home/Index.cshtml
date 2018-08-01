@@ -1,0 +1,308 @@
+﻿
+@*<!DOCTYPE html>*@
+<html lang="en">
+<head>
+    <title>Тестовое задание</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">    
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.4.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   
+    <style>
+        .dataTables_filter input {
+            width: 150px;
+            height: 25px;
+        }
+        .dataTables_filter label {
+            font-size: 15px;
+            font-weight: 100;
+            float: right;
+        }
+        /*table.dataTable thead th.sorting{
+    content: '\f160' !important;
+    /*background: none;
+    color: #ddd;
+    font-size: 0.8em;
+    padding-top: 0.12em;
+}*/
+        /*table.dataTable thead th.sorting_asc:after {
+    content: "\f160";
+}*/
+        table.dataTable thead .sorting,
+        table.dataTable thead .sorting_asc,
+        table.dataTable thead .sorting_desc {
+            background: none;
+        }
+
+        #example .sorting::after {
+            content: "\f0dc";
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            color: #767272;
+            font-size: 15px;
+            float: right;
+        }
+
+        #example .sorting_desc::after {
+            content: "\f161";
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            color: #767272;
+            font-size: 15px;
+            float: right;
+        }
+
+        #example .sorting_asc::after {
+            content: "\f160";
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            color: #767272;
+            font-size: 15px;
+            float: right;
+        }
+        th {
+            font-size: 13px;            
+            border: 1px solid #d9cece;
+        }
+
+        .DialogClass .ui-dialog-titlebar {        
+           background: #e8e2e2;
+           color: #948f8f;
+           font-size: 15px;            
+        }        
+       .lab 
+        { font-size:  15px;}
+              
+       .jqtree-element:hover, ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
+                background-color: #a7d0ed;               
+            }
+     ul.tree li.selected > div {
+        outline:none !important;
+        border:0 !important;
+        }
+     .jqtree-element.selected:active {
+         outline: 0 !important;
+         /*background-color:#DDEBF7;border: 1px solid white;height:23px;color:red;*/
+     }
+       ul.jqtree-tree .jqtree-title:focus{        
+        outline-width: 0 !important;
+        border: 0 !important;
+        }        
+   
+     </style>
+</head>
+<body>  
+    <div class="container-fluid">
+        <div class="row">
+            <br>
+            <div class="col-sm-2">                
+            </div>
+            <div class="col-sm-8">
+                <table id="example" class="row-border hover order-column">
+                    <thead>
+                        <tr><th>#</th><th>Рейс</th><th>Время отправления</th><th>Время прибытия</th><th>Остановка</th><th>Действие</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+    </div>
+       
+        <div id="dialog" title="Добавить запись"> 
+            <br>
+            <br>         
+            <form>
+                <fieldset>
+                    <div>                        
+                        <input name="id" id="id" type="hidden">
+                        <input name="action" id="action" type="hidden">
+                    </div>
+                    <div>
+                        <span class="lab">Рейс</span>
+                        <input type="text" name="name" id="rout" class="text ui-widget-content ui-corner-all" style="float:right">
+                    </div>
+                    <br>
+                    <div>
+                        <span class="lab">Вреия отправления</span>                      
+                        <input type="text" name="time_depart" id="timeDep" class="text ui-widget-content ui-corner-all" style="float:right">
+                    </div>
+                    <br>
+                    <div>
+                        <span class ="lab">Время прибытия</span>
+                        <input type="text" name="time_arrive" id="timeArr" class="text ui-widget-content ui-corner-all" style="float:right">
+                    </div>
+                    <div>
+                        <br>
+                        <span class="lab">Остановка</span>
+                        <input type="text" name="stop" id="stop" class="text ui-widget-content ui-corner-all" style="float:right">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+  
+  
+   
+
+</body>
+</html>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#example').dataTable({
+
+            language: {
+                "lengthMenu": "Показать _MENU_ записей на страницу",
+                "info": "Показать _PAGE_ из _PAGES_ страниц",
+                "search": "Поиск",
+                "infoFiltered": "",
+                "paginate": {
+                    "previous": "предыдущая",
+                    "next": "следующая"
+                }
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                  {
+                      text: 'Добавить',
+                      action: function (e, dt, node, config) {                                                                                                   
+                          $("#ok").text('Добавить');
+                          $("#dialog").dialog({ title: "Добавить запись" });
+                          $("#dialog").dialog("open");
+                          $("#id").val(0);
+                          $("#rout").val("");
+                          $("#timeDep").val("");
+                          $("#timeArr").val("");
+                          $("#stop").val("");
+                          $("#action").val("add");
+                      }
+                  }
+            ],
+            serverSide: true,
+            search: true,
+            pageLength: 10,
+            render: true,
+            ajax: {               
+                url: "home/dataHandler",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: function (data) {
+                    console.log(JSON.stringify(data));
+                    return data = JSON.stringify(data);
+                }
+            },
+            "processing": true,
+            "paging": true,
+            "deferRender": true,
+            columns: [
+            { "data": "Id" },
+            { "data": "rout" },
+            { "data": "timeDep" },
+            { "data": "timeArr" },
+            { "data": "stop" },
+            { "data": "" }
+            ],
+            columnDefs: [
+                 {
+                     "targets": [0],
+                     "visible": false
+                 },
+                {
+                    "targets": -1,
+                    "width": "5%",
+                    "data": null,
+                    "sorting": false,
+                    "defaultContent": "<div align='center'><button type='button' id='edit' class='btn btn-default btn-xs'><span class='glyphicon glyphicon-pencil'></span></button>" +
+                                      "<button type='button' id='del'  class='btn btn-default btn-xs'><span class='glyphicon glyphicon-trash'></span></button></div>"
+                }
+            ]
+        });      
+
+        //edit
+        $('#example tbody').on('click', '#edit', function () {
+            $("#ok").text('Изменить');
+            $("#dialog").dialog({ title: "Редактировать" });
+            $("#dialog").dialog("open");
+            var t = $('#example').DataTable();
+            id = t.row($(this).parents('tr')).data().Id;
+
+            $("#id").val(id);
+            $("#rout").val(t.row($(this).parents('tr')).data().rout);
+            $("#timeDep").val(t.row($(this).parents('tr')).data().timeDep);
+            $("#timeArr").val(t.row($(this).parents('tr')).data().timeArr);
+            $("#stop").val(t.row($(this).parents('tr')).data().stop);
+            $("#action").val("update");
+
+        });
+
+        // Удаление
+        $('#example tbody').on('click', '#del', function () {
+            $("#ok").text('Удалить');
+            $("#dialog").dialog({ title: "Хотите удалить запись ?" });
+            $("#dialog").dialog("open");
+            var t = $('#example').DataTable();
+            id = t.row($(this).parents('tr')).data().Id;
+            $("#id").val(id);
+            $("#rout").val(t.row($(this).parents('tr')).data().rout);
+            $("#timeDep").val(t.row($(this).parents('tr')).data().timeDep);
+            $("#timeArr").val(t.row($(this).parents('tr')).data().timeArr);
+            $("#stop").val(t.row($(this).parents('tr')).data().stop);
+            $("#action").val("del");
+
+        });       
+
+        $("#dialog").dialog({
+            modal: true,
+            bgiframe: true,
+            width: 570,
+            height: 400,
+            autoOpen: false,
+            dialogClass: 'DialogClass',
+            buttons: [{
+                id: "ok",
+                text: 'Добавить',
+                click: function () {
+                    $.ajax({
+                        url: '/home/ActionRecord',
+                        type: "POST",
+                        data: { id_: $("#id").val(), rout_: $("#rout").val(), timeDep_: $("#timeDep").val(), timeArr_: $("#timeArr").val(), stop_: $("#stop").val(), action: $("#action").val() },
+                        success: function (data) {                          
+                            var table = $('#example').DataTable();
+                            table.draw();
+                        },
+                    })
+                    $(this).dialog("close");
+                }
+            },
+            {
+                id: "cancel",
+                text: 'Отмена',
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }]
+        });
+    })
+</script>
+
+
+

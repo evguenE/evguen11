@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />*@
+   
+</head>
+@*<body>*@
+    <body ng-app="app" ng-controller="listController as view"
+          ng-cloak data-resource-set="LocalizationForm">
+
+        <div class="banner">
+            <div id="TitleBar">
+                <a href="index.html">
+                    <img src="images/Westwind.Localization_128.png"
+                         style="height: 35px; float: left" />
+                    <div style="float: left; margin-left: 5px; line-height: 1.2">
+                        <i style="color: steelblue; font-size: 0.8em; font-weight: bold;">West Wind Globalization</i><br />
+                        <i style="color: whitesmoke; font-size: 1.25em; font-weight: bold;" data-resource-id="LocalizationAdministration">{{::view.dbRes('LocalizationAdministration')}}</i>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div ng-include="'Partials/Menubar.html'"></div>
+        <div id="ContentContainer"
+             ng-cloak>
+
+            <div id="ListPanel"
+                 ng-class="{ collapsed: !view.listVisible}">
+
+                <div class="input-group">
+                    <span class="input-group-addon" style="border-radius: 0"><i class="fa fa-search"></i></span>
+                    <input id="SearchResources"
+                           class="form-control"
+                           placeholder="{{::view.dbRes('SearchResources')}}"
+                           ng-model="view.searchText"
+                           style="border-radius: 0; margin: 0"
+                           type="search" data-resource-id="SearchResources"
+                           accesskey="E" />
+                </div>
+
+                <select id="ResourceIdList" ng-model="view.resourceId"
+                        ng-change="view.onResourceIdChange(resource)"
+                        size="2"
+                        class="form-control">
+                    <option ng-repeat="resource in view.resourceList | filter:view.searchText"
+                            value="{{resource.ResourceId}}"
+                            style="{{resource.Style}}">
+                        {{resource.ResourceId}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="splitter">
+            </div>
+
+            <div id="ContentPanel" class="ContentPanel"
+                 ng-class="{expanded: !view.listVisible }">
+
+                <div ng-include src="'partials/ResourceList.html'"></div>
+
+                <div ng-include src="'partials/ResourceSetList.html'"></div>
+
+            </div>
+        </div>
+
+        @*<div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>*@
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

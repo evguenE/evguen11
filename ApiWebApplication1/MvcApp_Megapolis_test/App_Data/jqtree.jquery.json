@@ -1,0 +1,49 @@
+﻿[
+    {
+        "label": "Входящие",
+        "id": 1,
+        "children": [
+            {
+                "id": 2,
+                "label": "Петров",
+                "children": [
+                    {
+                        "id": 3,
+                        "label": "Заявка№1",
+                        "children": [
+                        ]
+                    },
+                    {
+                        "id": 4,
+                        "label": "Заявка№2",
+                        "children": [
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "label": "Касса",
+        "id": 22,
+        "children": [
+            {
+                "id": 5,
+                "label": "Сидоров",
+                "children": [
+                ]
+            }
+        ]
+    },
+	{
+        "label": "Заказ",
+        "id": 23,
+         "children": [{}
+                    ]
+    },
+	{
+        "label": "Задание",
+        "id": 24,
+        "load_on_demand": false
+    }
+]

@@ -1,0 +1,32 @@
+﻿
+
+
+
+<div class="card card-block" style="border: 2px solid gray; width: 600px; border-radius: 10px;">
+    <div class=" card-body">
+        <div class="row">
+            <div class="col-md-10">
+                <h5 class="card-title" style="padding:4px">Иванов Иван иванович</h5>
+                <p class="card-text" style="padding:4px">
+                    @*@foreach (var std in ViewData["students"] as IList<Student>)
+                    {
+                        <li>
+                            @std.StudentName
+                        </li>
+                    }*@
+                    ivanov@itv.ru<br>
+                    +89055107255<br>
+                </p>
+            </div>
+            <div class="col-md-2">
+               
+                <div class="btn-group-vertical pull-right">
+                    <button type="button" class="btn btn-default glyphicon-plus" style="border: 2px solid gray; padding: 14px; margin-right: 2px"></button>
+                    <button type="button" class="btn btn-default " style="border: 2px solid gray; padding: 14px; margin-right: 2px">-</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
